@@ -1,6 +1,36 @@
 let humanScore = 0;
 let computerScore = 0;
 
+let rockButton = document.querySelector("#rock");
+let paperButton = document.querySelector("#paper");
+let scissorsButton = document.querySelector("#scissors");
+
+let resultText = document.querySelector("div");
+
+
+rockButton.addEventListener('click', (e) => {
+    const humanSelection = "ROCK";
+    const computerSelection = getComputerChoice();
+    playRound(humanSelection, computerSelection);
+    
+})
+
+paperButton.addEventListener('click', (e) => {
+    const humanSelection = "PAPER";
+    const computerSelection = getComputerChoice();
+    playRound(humanSelection, computerSelection);
+})
+
+scissorsButton.addEventListener('click', (e) => {
+    const humanSelection = "SCISSORS";
+    const computerSelection = getComputerChoice();
+    playRound(humanSelection, computerSelection);
+})
+
+
+function displayResult(text) {
+    resultText.textContent = text;
+}
 
 function getComputerChoice() {
 
@@ -26,46 +56,31 @@ function getHumanChoice() {
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === "ROCK" && computerChoice === "SCISSORS" || humanChoice === "PAPER" && computerChoice === "ROCK" || humanChoice === "SCISSORS" && computerChoice === "PAPER") {
-        console.log("HUMAN: " + humanChoice + " " + "COMPUTER: " + computerChoice)
-        console.log("Human Wins!")
         humanScore = ++humanScore
-        console.log("Human Score: " + humanScore)
-        console.log("Computer Score: " + computerScore)
+        displayResult("HUMAN: " + humanChoice + "   " + "COMPUTER: " + computerChoice + "   " +
+            "Human Score: " + humanScore + "   " + "Computer Score: " + computerScore);
+        checkWinner()
     } else if (humanChoice === computerChoice) {
-        console.log("HUMAN: " + humanChoice + " " + "COMPUTER: " + computerChoice)
-        console.log("Draw")
-        console.log("Human Score: " + humanScore)
-        console.log("Computer Score: " + computerScore)
+        displayResult("HUMAN: " + humanChoice + "   " + "COMPUTER: " + computerChoice + "   " +
+            "Human Score: " + humanScore + "   " + "Computer Score: " + computerScore);
+        checkWinner()
         
     } else if (computerChoice === "ROCK" && humanChoice === "SCISSORS" || computerChoice === "PAPER" && humanChoice === "ROCK" || computerChoice === "SCISSORS" && humanChoice === "PAPER") {
-        console.log("HUMAN: " + humanChoice + " " + "COMPUTER: " + computerChoice)
-        console.log("Computer Wins!")
         computerScore = ++computerScore
-        console.log("Human Score: " + humanScore)
-        console.log("Computer Score: " + computerScore)
+        displayResult("HUMAN: " + humanChoice + "   " + "COMPUTER: " + computerChoice + "   " +
+            "Human Score: " + humanScore + "   " + "Computer Score: " + computerScore);
+        checkWinner()
     }
 }
 
-function declareWinner() {
-    if (humanScore > computerScore) {
-        console.log("Winner is Human with " + humanScore  + " points!")
-    } else if (computerScore > humanScore) {
-        console.log("Winner is Computer with " + computerScore  + " points!")
-    } else {
-        console.log("Results Tied. Both Have " + humanScore + " points.")
-    }
-}
-
-function playGame() {
-    for (let round = 0; round < 5; round++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection)
-    }
-    console.log("Game has Ended.")
-    declareWinner()
-}
 
 
-playGame()
+function checkWinner() {
+    if (humanScore >= 5) {
+    displayResult("Winner is Human with 5 points!")
+} else if (computerScore >= 5) {
+    displayResult("Winner is Computer with 5 points!")
+};
+};
+
 
